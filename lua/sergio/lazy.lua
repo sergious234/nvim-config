@@ -24,6 +24,7 @@ require("lazy").setup({
     { "nvim-telescope/telescope-live-grep-args.nvim" },
     "nanotee/zoxide.vim",
     "nvim-telescope/telescope-ui-select.nvim",
+    "mfussenegger/nvim-jdtls",
 
     {
         "aaronhallaert/advanced-git-search.nvim",
