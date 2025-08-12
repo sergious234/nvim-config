@@ -1,4 +1,3 @@
-require("sergio.lazy")
-require("sergio.remaps")
-require("sergio.set")
-
+require("config.lazy")
+require("config.options")
+require("config.remaps")
