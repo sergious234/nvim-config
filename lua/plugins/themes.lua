@@ -1,13 +1,13 @@
 return {
 	"folke/tokyonight.nvim",
 	opts = {
-		transparent = true,
+		transparent = false,
 		styles = {
 			sidebars = "transparent",
 			floats = "transparent",
 		},
 	},
-
+	"https://github.com/vague2k/vague.nvim",
 	{
 		"sainnhe/gruvbox-material",
 	},
