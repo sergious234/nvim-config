@@ -136,15 +136,15 @@ end
 Theme = Random_theme()
 vim.cmd("colorscheme " .. Theme.colorscheme)
 
-local _general = agrp("_general", { clear = true })
-vim.api.nvim_create_autocmd(
-	{ "BufEnter", "CursorHold", "InsertLeave" },
-	{
-		pattern = "*.rs",
-		command = "lua vim.lsp.codelens.refresh({ bufnr = 0 })",
-		group = _general
-	}
-)
+-- local _general = agrp("_general", { clear = true })
+-- vim.api.nvim_create_autocmd(
+-- 	{ "BufEnter", "CursorHold", "InsertLeave" },
+-- 	{
+-- 		pattern = "*.rs",
+-- 		command = "lua vim.lsp.codelens.refresh({ bufnr = 0 })",
+-- 		group = _general
+-- 	}
+-- )
 
 vim.g.rustaceanvim = {
 	-- Plugin configuration
