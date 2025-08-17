@@ -77,7 +77,6 @@ require "oil".setup({
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "tinymist", "clangd" })
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
@@ -87,74 +86,13 @@ vim.lsp.config("lua_ls", {
 		}
 	}
 })
+vim.lsp.enable({ "lua_ls", "tinymist", "clangd" })
+
 
 require('nvim-treesitter.configs').setup({
 	highlight = { enable = true, },
 	ensure_installed = { "c", "lua", "rust", "python", "java", "cpp", "regex" },
 })
-
-
--- vim.cmd [[set completeopt+=menuone,noselect,popup]]
-
--- vim.opt.tabstop = 4
--- vim.opt.softtabstop = 4
--- vim.opt.shiftwidth = 4
--- vim.opt.winborder = "rounded"
--- vim.opt.swapfile = false
--- vim.opt.undofile = true
--- vim.opt.number = true
--- vim.opt.relativenumber = true
--- vim.opt.scrolloff = 8
--- vim.opt.signcolumn = "yes"
--- vim.opt.isfname:append("@-@")
-
-
--- vim.g.mapleader = " "
-
--- vim.g.indentLine_concealcursor = 'n'
-
--- vim.diagnostic.config({
---     virtual_text = {
---         prefix = "",
---         severity = nil,
---     },
---     signs = true,
---     update_in_insert = true,
--- })
-
-
--- vim.fn.sign_define("DiagnosticSignError", { text = "⑱", texthl = "DiagnosticSignError" })
--- vim.fn.sign_define("DiagnosticSignWarn", { text = "꩜", texthl = "DiagnosticSignWarn" })
-
-
--- local lsp_config = require('lspconfig')
--- lsp_config.clangd.setup({
---     on_attach = function(client, bufnr)
---         vim.lsp.codelens.refresh()
---     end
--- })
-
--- vim.g.rustaceanvim = {
---     server = {
---         cmd = function()
---             local mason_registry = require('mason-registry')
---             local ra_binary = mason_registry.is_installed('rust-analyzer')
---             -- This may need to be tweaked, depending on the operating system.
---             and mason_registry.get_package('rust-analyzer'):get_install_path() .. "/rust-analyzer"
---             or "rust-analyzer"
---             return { ra_binary } -- You can add args to the list, such as '--log-file'
---         end,
---
---         default_settings = {
---             ["rust-analyzer"] = {
---                 checkOnSave = true,
---                 check = {
---                     command = "clippy"
---                 }
---             }
---         }
---     }
--- }
 
 
 math.randomseed(os.time())
@@ -192,11 +130,21 @@ end
 function Reload_theme()
 	local theme = Random_theme().colorscheme
 	vim.cmd("colorscheme " .. theme)
-	vim.notify("New theme: " .. theme .. " !", vim.log.levels.INFO)
+	vim.notify("New theme: " .. "[" .. theme .. "]" .. " !", vim.log.levels.INFO)
 end
 
 Theme = Random_theme()
 vim.cmd("colorscheme " .. Theme.colorscheme)
+
+local _general = agrp("_general", { clear = true })
+vim.api.nvim_create_autocmd(
+	{ "BufEnter", "CursorHold", "InsertLeave" },
+	{
+		pattern = "*.rs",
+		command = "lua vim.lsp.codelens.refresh({ bufnr = 0 })",
+		group = _general
+	}
+)
 
 vim.g.rustaceanvim = {
 	-- Plugin configuration
@@ -205,17 +153,18 @@ vim.g.rustaceanvim = {
 	server = {
 		on_attach = function(client, bufnr)
 			vim.notify("rustaceanvim attached!")
-			vim.keymap.set("n", "grd", vim.lsp.buf.definition)
+
+
 			vim.keymap.set("x", "ia", ":<C-u>normal! T<vt><CR>", { silent = true })
+			vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "Goto definition" })
+			vim.keymap.set("n", "grt", function() vim.cmd.RustLsp('openCargo') end,
+				{ desc = "Open Cargo.toml", noremap = true })
+			vim.keymap.set("n", "grm", function() vim.cmd.RustLsp('openDocs') end, { desc = "Open docs.rs" })
+			vim.keymap.set("n", "gre", function() vim.cmd.RustLsp('explainError') end, { desc = "Explain error >.<" }) -- default to 'cycle'
+
 			-- you can also put keymaps in here
-			vim.keymap.set(
-				"n",
-				"K",
-				function()
-					vim.cmd.RustLsp({ 'hover', 'actions' })
-				end,
-				{ silent = true, buffer = bufnr }
-			)
+			vim.keymap.set("n", "K", function() vim.cmd.RustLsp({ 'hover', 'actions' }) end,
+				{ silent = true, buffer = bufnr, desc = "Show info" })
 		end,
 
 		default_settings = {
@@ -231,6 +180,17 @@ vim.g.rustaceanvim = {
 						enable = true,
 					},
 				},
+				check = {
+					command = "clippy"
+				},
+				lens = {
+					enable = true,
+					references = {
+						method = {
+							enable = true
+						}
+					}
+				}
 			},
 		},
 	},
