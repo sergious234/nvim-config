@@ -40,7 +40,14 @@ vim.lsp.config("tsserver", {
 })
 
 vim.lsp.config("clangd", {
-	cmd = { "clangd" },
+	cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=never",
+  },
+	filetypes = { "c", "cpp", "objc", "objcpp" },
+
 	root_markers = {
 		'.clang-tidy'
 	},
@@ -53,7 +60,9 @@ vim.lsp.config("clangd", {
 		},
 	},
 	init_options = {
-		fallbackFlags = { '--std=c++23' }
+		clangdFileStatus = true,
+    completeUnimported = true,
+		fallbackFlags = { '--std=c++23', '-Wall', '-Wextra'}
 	},
 })
 
