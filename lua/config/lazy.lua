@@ -21,12 +21,11 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.opt.termguicolors = true
-vim.opt.background = "dark"
+-- vim.opt.termguicolors = true
+-- vim.opt.background = "dark"
 
 require("lazy").setup({
 	spec = {
-
 		{ import = "plugins" },
 	},
 	install = { colorscheme = { "habamax", "tokyonight-night" } },

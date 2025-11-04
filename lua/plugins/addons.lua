@@ -8,6 +8,14 @@ return {
 
 	{ 'https://github.com/NvChad/showkeys',                 opt = true },
 	"folke/which-key.nvim",
+	"norcalli/nvim-colorizer.lua",
+
+	{
+		'chomosuke/typst-preview.nvim',
+		lazy = false, -- or ft = 'typst'
+		version = '1.*',
+		opts = {}, -- lazy.nvim will implicitly calls `setup {}`
+	},
 
 	-- LSP loading bar
 	{
