@@ -16,7 +16,7 @@ vim.keymap.set("n", "<leader>qq", ":quit<CR>", { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>so", ":so %<CR>", { desc = "Reload current file", noremap = true, silent = true })
 
 -- Reload theme
-vim.keymap.set("n", "<leader>rt", Reload_theme, { desc = "Reload theme", noremap = true, silent = true })
+-- vim.keymap.set("n", "<leader>rt", Reload_theme, { desc = "Reload theme", noremap = true, silent = true })
 
 --[[
 --  w+ -> window control
