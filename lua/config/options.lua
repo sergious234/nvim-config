@@ -69,13 +69,22 @@ vim.lsp.config("clangd", {
 
 vim.lsp.enable({ "lua_ls", "tinymist", "tsserver", "pylsp", "clangd" })
 
-require('nvim-treesitter.configs').setup({
-	highlight = { enable = true, },
-	ensure_installed = { "c", "lua", "rust", "typescript", "python", "java", "cpp", "regex" },
-})
+vim.lsp.config["tinymist"] = {
+	settings = {
+		formatterMode = "typstyle",
+		exportPdf = "onSave",
+		lint = {
+			when = "onSave"
+		},
+		preview = {
+			refresh = "onSave"
+		}
+	}
+}
 
 vim.cmd("colorscheme " .. "vague")
 
+vim.diagnostic.config({ virtual_text = true })
 
 vim.g.rustaceanvim = {
 	-- Plugin configuration
@@ -121,7 +130,7 @@ vim.g.rustaceanvim = {
 				},
 				check = {
 					command = "clippy",
-					extraArgs = { "--", "-Wclippy::all", "-Wclippy::correctness", "-Wclippy::complexity" }
+					extraArgs = { "--", "-Wclippy::all", "-Wclippy::correctness", "-Wclippy::pedantic" }
 				},
 				lens = {
 					enable = true,
