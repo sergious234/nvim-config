@@ -26,6 +26,8 @@ require "mini.pick".setup({
 	}
 })
 
+require "mini.statusline".setup({})
+
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
