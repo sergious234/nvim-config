@@ -12,7 +12,7 @@ return {
 	end
 	,
 	dependencies = {
-		{ 'echasnovski/mini.nvim',       version = '*' },
+		{ 'nvim-mini/mini.nvim',       version = '*' },
 		{ "nvim-tree/nvim-web-devicons", opts = {} }
 	}
 }

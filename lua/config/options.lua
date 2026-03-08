@@ -12,7 +12,7 @@ vim.opt.undofile = true
 vim.opt.signcolumn = "yes"
 vim.opt.foldmethod = "indent"
 vim.lsp.inlay_hint.enable(true)
-vim.lsp.buf.format({async = true})
+vim.lsp.buf.format({ async = true })
 vim.diagnostic.config({ virtual_text = true })
 
 require "colorizer".setup()
@@ -25,8 +25,16 @@ require "mini.pick".setup({
 		}
 	}
 })
-
-require "mini.statusline".setup({})
+require "mini.icons".setup()
+require "mini.diff".setup({
+	view = {
+		style = 'sign',
+		signs = { change = '#', delete = '~', add = '+' }
+	}
+}
+)
+require "mini.git".setup()
+require "mini.statusline".setup()
 
 vim.lsp.config("lua_ls", {
 	settings = {
@@ -49,7 +57,7 @@ vim.lsp.config("clangd", {
 		"--clang-tidy",
 		"--header-insertion=never",
 	},
-	filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp"},
+	filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp" },
 
 	root_markers = {
 		'.clang-tidy'

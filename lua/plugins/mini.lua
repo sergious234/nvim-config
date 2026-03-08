@@ -1,5 +1,8 @@
 return {
 	-- File picker
-	"https://github.com/echasnovski/mini.pick",
-	"echasnovski/mini.statusline"
+	"nvim-mini/mini.pick",
+	"nvim-mini/mini.icons",
+	"nvim-mini/mini.statusline",
+	"nvim-mini/mini.diff",
+	"nvim-mini/mini-git",
 }
