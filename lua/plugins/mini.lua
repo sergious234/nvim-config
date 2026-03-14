@@ -4,5 +4,6 @@ return {
 	"nvim-mini/mini.icons",
 	"nvim-mini/mini.statusline",
 	"nvim-mini/mini.diff",
+	"nvim-mini/mini.animate",
 	"nvim-mini/mini-git",
 }

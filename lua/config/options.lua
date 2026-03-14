@@ -123,7 +123,7 @@ vim.g.rustaceanvim = {
 		default_settings = {
 			-- rust-analyzer language server configuration
 			["rust-analyzer"] = {
-				checkOnSave = false,
+				checkOnSave = true,
 				procMacro = {
 					enable = true,
 				},
@@ -140,7 +140,7 @@ vim.g.rustaceanvim = {
 				},
 				check = {
 					command = "clippy",
-					extraArgs = { "--", "-Wclippy::all", "-Wclippy::correctness", "-Wclippy::pedantic" }
+					extraArgs = { "--", "-Wclippy::all", "-Wclippy::correctness" }
 				},
 				lens = {
 					enable = true,

@@ -1,4 +1,5 @@
 return {
+	{
 	"folke/tokyonight.nvim",
 	opts = {
 		transparent = false,
@@ -7,6 +8,7 @@ return {
 			floats = "transparent",
 		},
 	},
+},
 	"https://github.com/vague2k/vague.nvim",
 	{
 		"sainnhe/gruvbox-material",
@@ -15,4 +17,12 @@ return {
 		"sainnhe/everforest",
 	},
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	"rebelot/kanagawa.nvim",
+	{
+		"ribru17/bamboo.nvim", 
+		config = function() 
+			require('bamboo').setup()
+			require('bamboo').load()
+		end,
+	}
 }
