@@ -15,7 +15,6 @@ vim.lsp.inlay_hint.enable(true)
 vim.lsp.buf.format({ async = true })
 vim.diagnostic.config({ virtual_text = true })
 
-require "colorizer".setup()
 require "mason".setup()
 require "showkeys".setup({ position = "top-right" })
 require "mini.pick".setup({
@@ -92,9 +91,8 @@ vim.lsp.config["tinymist"] = {
 	}
 }
 
-vim.cmd("colorscheme " .. "vague")
+vim.cmd("colorscheme vague")
 
-vim.diagnostic.config({ virtual_text = true })
 
 vim.g.rustaceanvim = {
 	-- Plugin configuration

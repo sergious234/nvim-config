@@ -8,7 +8,6 @@ return {
 
 	{ 'https://github.com/NvChad/showkeys',                 opt = true },
 	"folke/which-key.nvim",
-	"norcalli/nvim-colorizer.lua",
 
 	-- LSP loading bar
 	{

@@ -9,7 +9,7 @@ return {
 		},
 	},
 },
-	"https://github.com/vague2k/vague.nvim",
+	{"https://github.com/vague2k/vague.nvim", version="2.^"},
 	{
 		"sainnhe/gruvbox-material",
 	},

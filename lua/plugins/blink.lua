@@ -1,7 +1,7 @@
 return {
 	"saghen/blink.cmp",
 	-- optional: provides snippets for the snippet source
-	dependencies = { "rafamadriz/friendly-snippets" },
+	dependencies = { "rafamadriz/friendly-snippets", "onsails/lspkind.nvim" },
 
 	-- use a release tag to download pre-built binaries
 	version = "1.*",
@@ -34,7 +34,35 @@ return {
 		},
 
 		-- (Default) Only show the documentation popup when manually triggered
-		completion = { documentation = { auto_show = false }, menu = { border = "rounded" } },
+		completion = {
+			documentation = { auto_show = false },
+			menu = {
+				border = "single",
+				draw = {
+					columns = {{"kind_icon"},{"label", "label_description"}},
+					components = {
+						kind_icon = {
+							text = function(ctx)
+								local kind_icon = (require('lspkind').symbol_map[ctx.kind] or "") .. ctx.icon_gap
+								return kind_icon
+							end,
+							-- (optional) use highlights from mini.icons
+							highlight = function(ctx)
+								local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+								return hl
+							end,
+						},
+						kind = {
+							-- (optional) use highlights from mini.icons
+							highlight = function(ctx)
+								local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+								return hl
+							end,
+						}
+					}
+				}
+			}
+		},
 
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
