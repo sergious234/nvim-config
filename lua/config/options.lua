@@ -91,7 +91,7 @@ vim.lsp.config["tinymist"] = {
 	}
 }
 
-vim.cmd("colorscheme vague")
+vim.cmd("colorscheme bamboo-vulgaris")
 
 
 vim.g.rustaceanvim = {

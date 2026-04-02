@@ -39,7 +39,7 @@ return {
 			menu = {
 				border = "single",
 				draw = {
-					columns = {{"kind_icon"},{"label", "label_description"}},
+					columns = { { "kind_icon" }, { "label", gap = 1, "label_description" } },
 					components = {
 						kind_icon = {
 							text = function(ctx)
