@@ -1,3 +1,5 @@
+-- This file configures typst-preview.nvim, which provides live preview
+-- for Typst documents in a browser. Configured with custom port 25566.
 return {
 	"chomosuke/typst-preview.nvim",
 	version = "1.*",

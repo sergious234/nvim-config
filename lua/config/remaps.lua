@@ -55,32 +55,82 @@ vim.api.nvim_set_keymap("n", "<leader>td", ":bdelete<enter>", { noremap = false 
 vim.api.nvim_set_keymap("n", "<leader>ge", "g_", { noremap = false })
 
 
-vim.keymap.set("n", "<leader>ne", function()
-	vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
-end)
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		local opts = { buffer = ev.buf, silent = true }
 
-vim.keymap.set("n", "<leader>pe", function()
-	vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR
-	})
-end)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if client and client.server_capabilities.semanticTokensProvider then
+			client.server_capabilities.semanticTokensProvider = nil
+		end
 
-vim.keymap.set("n", "<leader>nw", function()
-	vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.WARN })
-end)
+		vim.keymap.set("n", "<leader>ne", function()
+			vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
+		end)
 
-vim.keymap.set("n", "<leader>pw", function()
-	vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.WARN })
-end)
+		vim.keymap.set("n", "<leader>pe", function()
+			vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR
+			})
+		end)
 
-vim.keymap.set("n", "<leader>ph", function()
-	vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.HINT })
-end)
+		vim.keymap.set("n", "<leader>nw", function()
+			vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.WARN })
+		end)
 
-vim.keymap.set("n", "<leader>nh", function()
-	vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.HINT })
-end)
+		vim.keymap.set("n", "<leader>pw", function()
+			vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.WARN })
+		end)
 
---
-vim.keymap.set('n', '<space>se', vim.diagnostic.open_float, { desc = "Show Error" })
-vim.keymap.set('n', 'grf', vim.lsp.buf.format, { desc = "Format current file" })
-vim.keymap.set("n", "gra", vim.lsp.buf.code_action, { desc = "LSP Code Actions" })
+		vim.keymap.set("n", "<leader>ph", function()
+			vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.HINT })
+		end)
+
+		vim.keymap.set("n", "<leader>nh", function()
+			vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.HINT })
+		end)
+
+		--
+		opts.desc = "Show diagnostic"
+		vim.keymap.set('n', '<leader>se', vim.diagnostic.open_float, opts)
+
+		opts.desc = "Format current buffer"
+		vim.keymap.set('n', 'grf', vim.lsp.buf.format, opts)
+
+		opts.desc = "Code actions"
+		vim.keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts)
+
+		opts.desc = "Go to declaration"
+		vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts)
+
+		opts.desc = "Go to definition"
+		vim.keymap.set("n", "grD", vim.lsp.buf.definition, opts)
+
+		opts.desc = "Smart rename"
+		vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts)
+
+		-- opts.desc = "Show buffer diagnostics"
+		-- keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+
+		opts.desc = "Show documentation under cursor"
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+		-- opts.desc = "Restart LSP"
+		-- vim.keymap.set("n", "grs", ":LspRestart<CR>", opts)
+
+		-- Enable inlay hints if supported
+		-- local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		-- local ft = vim.bo[ev.buf].filetype
+		-- local path = vim.api.nvim_buf_get_name(ev.buf)
+		-- local disable_inlay_hints = vim.tbl_contains({ "c", "cpp", "objc", "objcpp" }, ft)
+		--     or path:match("%.h$")
+		--     or path:match("%.hh$")
+		--     or path:match("%.hpp$")
+		--     or path:match("%.hxx$")
+		--     or path:match("%.inl$")
+
+		-- if client and client.server_capabilities.inlayHintProvider and not disable_inlay_hints then
+		-- 	vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+		-- end
+	end,
+})

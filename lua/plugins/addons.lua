@@ -1,5 +1,12 @@
+-- This file configures supplementary plugins:
+--  - nvim-lspconfig:  LSP server configuration and attachment
+--  - mason.nvim:      LSP server, linter, and formatter package manager
+--  - LuaSnip:         Snippet engine for code completion
+--  - showkeys:        Displays recent keypresses on screen
+--  - which-key.nvim:  Popup showing available keybindings
+--  - fidget.nvim:     Progress UI for LSP operations
+--  - uv.nvim:         Python uv package manager integration
 return {
-	{ "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{
 		'https://github.com/neovim/nvim-lspconfig',
 	},
@@ -14,5 +21,21 @@ return {
 		"j-hui/fidget.nvim",
 		opts = {
 		},
+	},
+
+	-- Python
+	{
+		"benomahony/uv.nvim",
+  	-- Optional filetype to lazy load when you open a python file
+  	-- ft = { python }
+  	-- Optional dependency, but recommended:
+  	-- dependencies = {
+  	--   "folke/snacks.nvim"
+  	-- or
+  	--   "nvim-telescope/telescope.nvim"
+  	-- },
+  	opts = {
+  	  picker_integration = true,
+  	},
 	}
 }

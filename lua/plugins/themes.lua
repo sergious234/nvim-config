@@ -1,3 +1,11 @@
+-- This file registers multiple colorschemes for Neovim:
+--  - tokyonight.nvim:   Modern dark theme (configured with transparency)
+--  - vague.nvim:        Subtle colorscheme
+--  - gruvbox-material:  Material variant of gruvbox
+--  - everforest:        Nature-inspired warm palette
+--  - catppuccin:        Pastel-themed colorscheme (high priority)
+--  - kanagawa.nvim:     Japanese-inspired theme
+--  - bamboo.nvim:       Warm, earthy colorscheme
 return {
 	{
 	"folke/tokyonight.nvim",
