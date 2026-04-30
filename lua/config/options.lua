@@ -35,6 +35,7 @@ require "mini.diff".setup({
 require "mini.git".setup()
 require "mini.statusline".setup()
 
+
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
@@ -76,8 +77,6 @@ vim.lsp.config("clangd", {
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "tinymist", "tsserver", "pylsp", "clangd" })
-
 vim.lsp.config["tinymist"] = {
 	settings = {
 		formatterMode = "typstyle",
@@ -91,8 +90,30 @@ vim.lsp.config["tinymist"] = {
 	}
 }
 
-vim.cmd("colorscheme bamboo-vulgaris")
+vim.lsp.config["ruff"] = {
+	cmd = { "uv", "run", "ruff", "server" },
+	root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
+	settings = {
+		pyright = {
+			-- Using Ruff's import organizer
+			disableOrganizeImports = true,
+		},
+		python = {
+			analysis = {
+				-- Ignore all files for analysis to exclusively use Ruff for linting
+				ignore = { '*' },
+			},
+		},
+	},
+}
 
+vim.lsp.config["pyright"] = {}
+
+vim.lsp.enable({ "lua_ls", "tinymist", "tsserver", "clangd", "ruff", "pyright" })
+
+-- vim.treesitter.language.add('python', { path = '/usr/lib/tree_sitter/python.so' })
+
+vim.cmd("colorscheme bamboo-vulgaris")
 
 vim.g.rustaceanvim = {
 	-- Plugin configuration
