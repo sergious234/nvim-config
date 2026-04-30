@@ -45,6 +45,7 @@ vim.lsp.config("lua_ls", {
 		}
 	}
 })
+
 vim.lsp.config("tsserver", {
 	cmd = { "typescript-language-server", "--stdio" },
 	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
@@ -113,7 +114,7 @@ vim.lsp.enable({ "lua_ls", "tinymist", "tsserver", "clangd", "ruff", "pyright" }
 
 -- vim.treesitter.language.add('python', { path = '/usr/lib/tree_sitter/python.so' })
 
-vim.cmd("colorscheme bamboo-vulgaris")
+vim.cmd("colorscheme gruvbox-material")
 
 vim.g.rustaceanvim = {
 	-- Plugin configuration
@@ -122,21 +123,24 @@ vim.g.rustaceanvim = {
 	server = {
 		on_attach = function(_, bufnr)
 			vim.notify("rustaceanvim attached!")
+			local opts = { buffer = bufnr, silent = true }
 
 
 			vim.keymap.set("x", "ia", ":<C-u>normal! T<vt><CR>", { silent = true })
-			vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "Goto definition" })
+			-- vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "Goto definition" })
 			vim.keymap.set("n", "grt", function() vim.cmd.RustLsp('openCargo') end,
 				{ desc = "Open Cargo.toml", noremap = true })
-			vim.keymap.set("n", "grm", function() vim.cmd.RustLsp('openDocs') end, { desc = "Open docs.rs" })
+
+			opts.desc = "Open docs.rs"
+			vim.keymap.set("n", "grm", function() vim.cmd.RustLsp('openDocs') end, opts)
 			vim.keymap.set("n", "gre", function() vim.cmd.RustLsp('explainError') end, { desc = "Explain error >.<" }) -- default to 'cycle'
 
 			vim.keymap.set("n", "grc", function() vim.cmd.RustLsp('flyCheck', 'run') end, { desc = "check" })
 
 			vim.keymap.set("n", "grr", function() vim.cmd.RustLsp('run') end, { desc = "run" })
 			-- you can also put keymaps in here
-			vim.keymap.set("n", "K", function() vim.cmd.RustLsp({ 'hover', 'actions' }) end,
-				{ silent = true, buffer = bufnr, desc = "Show info" })
+			-- vim.keymap.set("n", "K", function() vim.cmd.RustLsp({ 'hover', 'actions' }) end,
+			-- 	{ silent = true, buffer = bufnr, desc = "Show info" })
 		end,
 
 		default_settings = {
@@ -175,3 +179,32 @@ vim.g.rustaceanvim = {
 	-- DAP configuration
 	dap = {},
 }
+
+require "nvim-treesitter".setup({
+	highlight = {
+		enable = true,
+	},
+	auto_install = true,
+	-- enable autotagging (w/ nvim-ts-autotag plugin)
+	-- autotag = {
+	-- 	enable = true,
+	-- },
+	-- ensure these language parsers are installed
+	ensure_installed = {
+		"json",
+		"javascript",
+		"typescript",
+		"tsx",
+		"yaml",
+		"markdown",
+		"markdown_inline",
+		"bash",
+		"lua",
+		"dockerfile",
+		"gitignore",
+		"c",
+		"rust",
+		"python",
+		"toml"
+	},
+})

@@ -1,3 +1,9 @@
+-- This file configures blink.cmp, a high-performance autocompletion plugin.
+-- Features:
+--  - Fuzzy matching via Rust backend for speed and typo tolerance
+--  - Completion sources: LSP, path, snippets, buffer
+--  - Integration with friendly-snippets and lspkind.nvim for icons
+--  - Custom completion menu with icon alignment via mini.icons
 return {
 	"saghen/blink.cmp",
 	-- optional: provides snippets for the snippet source
