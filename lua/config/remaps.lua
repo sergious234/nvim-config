@@ -10,6 +10,15 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<leader>fe", ":Explore<CR>")
 
+-- local t = require("config.test")
+math.randomseed(vim.loop.hrtime())
+vim.keymap.set("n", "<leader>te", function()
+	package.loaded["config.test"] = nil
+ 	local t = require("config.test")
+	t.config.RESULTS_HEIGHT = math.random(3,10)
+	t.run()
+end)
+
 
 vim.keymap.set("n", "<leader>ww", ":write<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>qq", ":quit<CR>", { noremap = true, silent = true })

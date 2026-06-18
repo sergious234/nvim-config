@@ -14,6 +14,7 @@ vim.opt.foldmethod = "indent"
 vim.lsp.inlay_hint.enable(true)
 vim.lsp.buf.format({ async = true })
 vim.diagnostic.config({ virtual_text = true })
+vim.g.background_color = "dark"
 
 require "mason".setup()
 require "showkeys".setup({ position = "top-right" })
@@ -39,8 +40,17 @@ require "mini.statusline".setup()
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
+
+			runtime = {
+				version = "luaJIT",
+				path = vim.split(package.path, ";")
+			},
+			diagnostics = {
+				globals = {"vim"}
+			},
 			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true)
+				library = { vim.env.VIMRUNTIME },
+				checkThirdParty = true
 			}
 		}
 	}
@@ -74,7 +84,7 @@ vim.lsp.config("clangd", {
 	init_options = {
 		clangdFileStatus = true,
 		completeUnimported = true,
-		fallbackFlags = { '--std=c++23', '-Wall', '-Wextra' }
+		fallbackFlags = {'-Wall', '-Wextra' }
 	},
 })
 
@@ -137,7 +147,8 @@ vim.g.rustaceanvim = {
 
 			vim.keymap.set("n", "grc", function() vim.cmd.RustLsp('flyCheck', 'run') end, { desc = "check" })
 
-			vim.keymap.set("n", "grr", function() vim.cmd.RustLsp('run') end, { desc = "run" })
+			vim.keymap.set("n", "grR", function() vim.cmd.RustLsp('run') end, { desc = "run" })
+			-- vim.keymap.set("n", "grr", function() vim.cmd.RustLsp('') end, { desc = "run" })
 			-- you can also put keymaps in here
 			-- vim.keymap.set("n", "K", function() vim.cmd.RustLsp({ 'hover', 'actions' }) end,
 			-- 	{ silent = true, buffer = bufnr, desc = "Show info" })

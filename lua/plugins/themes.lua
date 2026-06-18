@@ -8,27 +8,28 @@
 --  - bamboo.nvim:       Warm, earthy colorscheme
 return {
 	{
-	"folke/tokyonight.nvim",
-	opts = {
-		transparent = false,
-		styles = {
-			sidebars = "transparent",
-			floats = "transparent",
+		"folke/tokyonight.nvim",
+		opts = {
+			transparent = false,
+			styles = {
+				sidebars = "transparent",
+				floats = "transparent",
+			},
 		},
 	},
-},
-	{"https://github.com/vague2k/vague.nvim", version="2.^"},
+	"navarasu/onedark.nvim",
+	{ "https://github.com/vague2k/vague.nvim", version = "2.^" },
 	{
 		"sainnhe/gruvbox-material",
-	},
-	{
+		"sainnhe/edge",
+		"sainnhe/sonokai",
 		"sainnhe/everforest",
 	},
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{ "catppuccin/nvim",                       name = "catppuccin", priority = 1000 },
 	"rebelot/kanagawa.nvim",
 	{
-		"ribru17/bamboo.nvim", 
-		config = function() 
+		"ribru17/bamboo.nvim",
+		config = function()
 			require('bamboo').setup()
 			require('bamboo').load()
 		end,
