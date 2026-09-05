@@ -45,6 +45,7 @@ vim.keymap.set("n", "<leader>wh", ":wincmd h<CR>")
 
 
 vim.keymap.set('n', '<leader>ff', ":Pick files<CR>")
+vim.keymap.set('n', '<leader>fg', ":Pick grep_live<CR>")
 vim.keymap.set('n', '<leader>hh', ":Pick help<CR>")
 vim.keymap.set('n', '<leader>ee', ":Oil<CR>")
 
